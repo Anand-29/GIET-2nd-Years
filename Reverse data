@@ -1,0 +1,7 @@
+list=input("Enter the data").split(",")
+i=0;j=len(list)-1
+while(i<j):
+    list[i],list[j]=list[j],list[i]
+    i+=1
+    j-=1
+print(*list)
