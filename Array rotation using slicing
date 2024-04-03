@@ -1,0 +1,5 @@
+list=input("Enter the data ").split()
+n=int(input("Enter rotation value "))
+n=n%len(list)
+list=list[len(list)-n : ]+list[ : len(list)-n]
+print(*list)
