@@ -1,0 +1,8 @@
+list=input("Enter list data").split()
+n=int(input("Enter rotation value"))
+for i in range(0,n):
+    k=list[len(list)-1]
+    for j in range(len(list)-1,0,-1):
+        list[j]=list[j-1]
+    list[0]=k
+print(list)
