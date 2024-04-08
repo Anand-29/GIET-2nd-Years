@@ -1,29 +1,53 @@
-def precedence(d):
-    if(d=='+'):
-        return 1
-    elif(d=='*'):
+def precedence(i):
+    if(i=='*' or i=='/'):
         return 2
+    if(i=='+' or i=='-'):
+        return 1
     else:
-        return -1                               #github.com/Anand-29
-n=input();list=[];stack=[]
+        return -1
+n=input("Enter the Expression")
+stack=[]
+solution=""
 for i in n:
-    if(i<='9' and i>='0'):
-        list.append(i)
-    else:
-        if(len(stack)-1!=-1 and precedence(i)<=precedence(stack[len(stack)-1])):
-            list.append(stack.pop())
+    if(i>='0' and i<='9'):
+        solution+=i
+    elif(i=="("):
+        stack.append(i)
+    elif(i==")"):
+        while(len(stack)!=0 and stack[len(stack)-1]!="("):
+            solution+=stack.pop()
+        stack.pop()
+    elif(i=='+'):
+        while(len(stack)!=0 and precedence(stack[len(stack)-1])>precedence(i)):
+           solution+=stack.pop()
+        stack.append(i)
+    elif(i=='-'):
+        while(len(stack)!=0 and precedence(stack[len(stack)-1])>precedence(i)):
+           solution+=stack.pop()
+        stack.append(i)
+    elif(i=='*'):
+        while(len(stack)!=0 and precedence(stack[len(stack)-1])>precedence(i)):
+           solution+=stack.pop()
+        stack.append(i)
+    elif(i=='/'):
+        while(len(stack)!=0 and precedence(stack[len(stack)-1])>precedence(i)):
+           solution+=stack.pop()
         stack.append(i)
 while len(stack)!=0:
-    list.append(stack.pop())
-print(list)
-for i in list:
-    if(i<='9' and i>='0'):
+    solution+=stack.pop()
+print("Postfix:- ",solution)
+for i in solution:
+    if(i>='0' and i<='9'):
         stack.append(i)
     else:
         v1=int(stack.pop())
         v2=int(stack.pop())
         if(i=='+'):
             stack.append(v1+v2)
-        elif(i=='*'):
+        if(i=='-'):
+            stack.append(v1-v2)
+        if(i=='*'):
             stack.append(v1*v2)
-print(stack[len(stack)-1])
+        if(i=='/'):
+            stack.append(v1/v2)
+print("Solution:- "stack[len(stack)-1])
